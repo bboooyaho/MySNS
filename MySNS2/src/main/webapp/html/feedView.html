@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta name=viewpoint
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../css/core.css">
+<link rel="stylesheet" href="../css/main.css">
+<title>MySNS</title>
+<style>
+.feed .text2 {
+	float: left;
+	width: 100%;
+	margin: 10px 0px 30px 0 px;
+	padding: 0px 16px;
+	box-sizing: border-box;
+	font-size: 1.0em;
+}
+</style>
+</head>
+<body>
+	<div class="page-hdr">MySNS</div>
+	<div class="page-body">
+		<div id="content" class="section"></div>
+	</div>
+</body>
+</html>
+
+<script src="../js/jquery-3.6.3.min.js"></script>
+<script src="../js/core.js"></script>
+<script>
+$(document).ready(function(){
+	page.init(start, "feedView.html"); 
+})
+
+
+function start(uid, feed) {
+	$("content").append(getFeedCode(feed));  
+}
+
+function getFeedCode(feed) {
+	var name = (feed.user == null) ? feed.id : feed.user.name;
+	
+	var str = "<div class='feed'>"; 
+	str += "<div class='author'>";
+	str += "<div class='photo'></div>";
+	str += "<div class='name'>" + name + "</div>";
+	str += "</div>";
+	
+	str += "<div class='text2'>" + feed.content + "</div>"; 
+	
+	if (feed.images != null) {
+		var imgurl = "../images/" + feed.images[0];
+		str += "<div class='image' style='background-image: url(\"" + imgstr + "\")'></div>";
+	}
+	str += "</div>";
+	
+	return str;
+}	
+
+</script>
