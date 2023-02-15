@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name=viewport
+	content="width=device-width, initial-scale=1,user-scalable=0">
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../css/core.css">
+<title>MySNS</title>
+
+<style>
+.desc {
+	float: left;
+	width: 100%;
+	color: #888;
+	font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+	<div class="page-hdr">MySNS</div>
+	<div class="page-body">
+		<div class="section pad-24 mtop-30">
+			<input id="id" type="text" placeholder="아이디(이메일 주소)"> <input
+				id="ps" type="password" class="mtop-10" placeholder="패스워드">
+			<input id="ps2" type="password" class="mtop-10"
+				placeholder="패스워드(확인)"> <input id="name" type="text"
+				class="mtop-10" placeholder="이름(닉네임)"> <input type="submit"
+				class="mtop-20" value="회원가입하기" onclick="signup()">
+		</div>
+		<div class="section pad-24 mtop-30">
+			<div class="desc mtop-20 mbot-20">회원가입시, MySNS의 약관에 동의하신 것으로
+				간주합니다.</div>
+			<a href="#"><div class="button">약관보기</div></a>
+		</div>
+	</div>
+	<div class="page-footer">Copyright: mysns.com, 2023</div>
+
+</body>
+<!-- 	<form action ="../jsp/signup.jsp" method = "post"> -->
+<!-- 	<table align = center> -->
+<!-- 		<tr><td colspan = 2 align = center height = 40>회원가입</td></tr> -->
+<!-- 		<tr> -->
+<!-- 			<td align = Right>아이디 &nbsp;</td> -->
+<!-- 			<td><input type = "text"  id = "id" placeholder ="Email" ></td> -->
+<!-- 		</tr> -->
+<!-- 		<tr> -->
+<!-- 			<td align = Right> 패스워드 &nbsp; </td> -->
+<!-- 			<td><input type ="password" id ="ps" ></td> -->
+<!-- 		</tr> -->
+<!-- 		<tr> -->
+<!-- 			<td align = Right> 패스워드(확인) &nbsp; </td> -->
+<!-- 			<td><input type ="password" id ="ps2" ></td> -->
+<!-- 		</tr> -->
+<!-- 		<tr> -->
+<!-- 			<td align = Right>이름 &nbsp;</td> -->
+<!-- 			<td><input type = "text"  id = "name" placeholder ="name" ></td> -->
+<!-- 		</tr> -->
+<!-- 		<tr> -->
+<!-- 			<td colspan = 2 align =center height =50 ><input type = "submit" value ="회원가입하기" onclick="signup()"></td>       -->
+<!-- 		</tr> -->
+<script src="../js/jquery-3.6.3.min.js"></script>
+<script src="../js/core.js"></script>
+<script>
+ 		function signup(){
+ 			var id = $("#id").val().trim(); 
+ 			if(id == "") {
+ 				alert("아이디를 입력해 주세요");
+ 				$("#id").focus(); 
+ 				return;
+ 			}
+ 				
+ 			var ps = $("#ps").val().trim(); 
+ 			if(id == "") {
+ 				alert("패스워드를 입력해 주세요");
+ 				$("#ps").focus(); 
+ 				return;
+ 			}
+ 				
+ 			var ps2 = $("#ps2").val().trim(); 
+ 			if(ps != ps2) {
+ 				alert("패스워드가 일치하지 않습니다!");
+ 				$("#ps2").focus(); 
+ 				return;
+ 			}
+ 				
+ 			var name = $("#name").val().trim(); 
+ 			if(id == "") {
+ 				alert("이름를 입력해 주세요");
+ 				$("#name").focus(); 
+ 				return;
+ 			}
+ 			
+ 			var userobj = {id:id, password:ps, name:name, ts:getToday()};
+ 			var params = {id: id, jsonstr: JSON.stringify(usrobj)}; 
+ 			//var url = "../jsp/signup.jsp? id=" + id;
+ 			var url = "../jsp/signup.jsp";  
+ 			AJAX.call(url, params, function(data){
+ 				var code = data.trim(); 
+ 				if(code == "EX") {
+ 					//out.print("이미 가입한 회원입니다.");
+ 					alert("이미 가입한 회원입니다.");
+ 				}
+ 					
+ 				else if(code == "ER"){
+ 					//out.print("“회원 가입이 완료되었습니다");
+ 					alert("회원 가입 중 오류가 발생하였습니다."); 
+ 				}
+ 					
+ 				else {
+ 					alert("회원 가입이 완료되었습니다."); 
+ 					window.location.href="main.html"; 
+ 				}
+ 					
+ 			});
+ 		}
+ 		
+ function getToday() {
+ 	var date = new Date();
+ 	var year = date.getFullYear(); 
+ 	var month = ("0" + (1+date.getMonth())).slice(-2); 
+ 	var day = ("0" +date.getDate()).slice(-2);  
+ 	return year +"-" + month + "-" + day;      
+ 		}
+ </script>
+
+
+</html>
