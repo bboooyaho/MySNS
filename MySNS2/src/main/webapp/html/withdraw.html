@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+.desc {
+	float: left;
+	width: 100%;
+	color: #888;
+	font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+	<!-- 	<form action ="../jsp/withdraw.jsp" method = "post"> -->
+	<table align=center>
+		<tr>
+			<td colspan=2 align=center height=40>회원탈퇴</td>
+		</tr>
+		<tr>
+			<td align=Right>아이디 &nbsp;</td>
+			<td><input type="text" id="id" placeholder="Email address"></td>
+		</tr>
+		<tr>
+			<td colspan=2 align=center height=50><input type="submit"
+				value="회원탈퇴" onclick="withdraw()"></td>
+		</tr>
+
+	</table>
+	<div class="page-footer">Copyright: mysns.com, 2023</div>
+</body>
+</html>
+
+<script src="../js/jquery-3.6.3.min.js"></script>
+<script src="../js/core.js"></script>
+
+<script> 
+$(document).ready(function() {
+	Page.init(start);
+	});
+
+function start(uid) {
+	// Page setup codes will be placed here ...
+	}
+	
+	
+function withdraw(){
+	var id = $("#id").val().trim();
+	if(id == ""){
+		alert("아이디를 입력해 주세요.");
+		$("#id").focus();
+		return;
+	}
+	
+	var url = "../jsp/withdraw.jsp?id=" + id;
+	AJAX.call(url, null, function(data){
+		var code = data.trim();
+		if(code == "NA"){
+			alert("회원 정보를 찾을 수 없습니다.");
+		}
+		
+		else if(code == "OK") {
+			alert("회원 탈퇴가 완료되었습니다.");
+		}
+		
+		else if(code == "ER") {
+			alert("회원 탈퇴 중 에러가 발생하였습니다."); 
+		}
+		
+		else { 
+			window.location.href = "login.html";
+		}
+	})
+	
+	
+}
+
+</script>
